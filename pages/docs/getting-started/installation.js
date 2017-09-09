@@ -1,7 +1,7 @@
 import markdown from 'markdown-in-js'
 import withDoc, { components } from '../../../lib/with-doc'
 
-import { arunoda } from '../../../lib/data/team'
+import { arunoda, leo } from '../../../lib/data/team'
 import { TerminalInput } from '../../../components/text/terminal'
 import Image from '../../../components/image'
 import Now from '../../../components/now/now'
@@ -10,10 +10,13 @@ import Now from '../../../components/now/now'
 export default withDoc({
   title: 'Installation',
   date: '31 July 2017',
-  authors: [arunoda],
+  authors: [arunoda, leo],
 })(markdown(components)`
 
-In order to deploy to ${<Now color="#000"/>}, you need to install a small utility app. Let's see how you can do that.
+In order to deploy something, you need at least one of our applications: Now Desktop and/or Now CLI (the perfect
+scenerio is both being installed).
+
+This page will guide you through the differences and why both clients matter.
 
 ## Now Desktop (Recommended)
 
@@ -22,7 +25,7 @@ ${
     src={`${IMAGE_ASSETS_URL}/docs/installation/now-desktop.png`}
     width={550}
     height={380}
-    caption="Now Desktop on Mac OS"
+    caption="Now Desktop on macOS"
   />
 }
 
@@ -31,23 +34,22 @@ This is a desktop app which is [available](https://zeit.co/download) for all of 
 You can deploy apps, see notifications, and manage your account using an easy-to-use interface.
 It will update new versions automatically behind the scenes and you can always use the latest version of [Now Desktop](https://zeit.co/download).
 
-> Additionally, it comes with the \`now\` command line utility where you can interact with ${<Now color="#000"/>} using a terminal.
+In addition, it provides you with the ability to easily install Now CLI, which will then be kept up-to-date automatically.
 
 ## Now CLI
 
-This is the command line interface for ${<Now color="#000"/>}, especially built for [servers](https://zeit.co/download#command-line). It's a pre-built binary and works without any dependencies.
+Our command line interface provides you with the biggest range of features and lets you interact with
+our platform using commands.
 
-Now CLI is the ideal way to interact with ${<Now color="#000"/>} inside Continues Integration(CI) services.
+It is also the ideal way to interact with ${<Now color="#000"/>} inside Continues Integration (CI) services.
 
-## Now via NPM
-
-This is exactly Now CLI but distributed via [NPM](https://www.npmjs.com/). This method is ideal if your server environment already has NPM support.
-
-You can get this via the following command:
+You can install it like this...
 
 ${
   <TerminalInput>npm install -g now</TerminalInput>
 }
+
+...or [download the binaries](https://zeit.co/download#command-line) directly.
 
 ## Open Source
 

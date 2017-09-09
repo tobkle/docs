@@ -1,7 +1,7 @@
 import markdown from 'markdown-in-js'
 import withDoc, { components } from '../../../lib/with-doc'
 
-import { arunoda } from '../../../lib/data/team'
+import { arunoda, leo } from '../../../lib/data/team'
 import { TerminalInput } from '../../../components/text/terminal'
 import { Code } from '../../../components/text/code'
 import { HR } from '../../../components/text/paragraph'
@@ -12,7 +12,7 @@ import Now from '../../../components/now/now'
 export default withDoc({
   title: 'Five Minute Guide',
   date: '30 July 2017',
-  authors: [arunoda],
+  authors: [arunoda, leo],
 })(markdown(components)`
 
 With ${<Now color="#000"/>}, you can deploy and publish any kind of web app (or service) in under five minutes. This guide includes information about:
@@ -26,18 +26,17 @@ With ${<Now color="#000"/>}, you can deploy and publish any kind of web app (or 
 
 To use ${<Now color="#000"/>}, start by installing [Now Desktop](https://zeit.co/download).
 
-When the installation is completed, you can log in to ${<Now color="#000"/>} by running the following command using a terminal:
+When the installation is completed, you'll be asked to log in (or sign up) using your email address. Once that's done, you'll
+be guided through a tutorial which contains a section for easily installing Now CLI.
 
-${<TerminalInput>now login</TerminalInput>}
-
-Follow the instructions on the screen.<br/>
-(Since this is your first time, it will create an account for you.)
+After you've installed it, continue with the sections below (if the installation isn't working for some reason, there
+are [several other ways](https://zeit.co/download#command-line) to install Now CLI).
 
 ## Deployment
 
 Let's deploy a simple static web app.
 
-Create a directory called \`my-web-app\` and add the following content to a file called \`index.html\`.
+As the first step, create a directory called \`my-web-app\` and add the following content to a file called \`index.html\`.
 
 ${<Code>{`<!DOCTYPE html>
 <html>
