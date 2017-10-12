@@ -8,11 +8,11 @@ import { TerminalInput } from '../../../components/text/terminal'
 
 // prettier-ignore
 export default withDoc({
-  title: 'Hide complexity of microservices from the user',
+  title: 'Simplyfing Microservices with Path Alias',
   date: '15 Mar 2017',
   authors: [leo, jamo],
 })(markdown(components)`
-With the microservices architecture, we break down the whole app into multiple independent programs. One such program is called a microservice. This architecture gives us a lot of benefits including:
+With the microservices architecture, we break down the whole app into multiple independent programs: microservices. This architecture gives us a lot of benefits including:
 
 - **Parallelize** workload by distributing ownership and responsibility across different teams.
 - **Mix up** different languages, frameworks and even varied versions of those.
@@ -39,8 +39,8 @@ As our app evolves, we need to merge both \`backend\` and \`frontend\` into a si
 We can do a new mapping like this:
 
 ${<Code>{`- our-domain.com/api/register -> api-register.our-domain.com
-- our-domain.com/api -> api.our-domain.com
-- our-domain.com/* -> ui.our-domain.com
+- our-domain.com/api/** -> api.our-domain.com
+- our-domain.com/** -> ui.our-domain.com
 `}</Code>}
 
 After this, we will have whole new microservices set up. However, our end users do not need to know about these changes.
@@ -49,7 +49,7 @@ After this, we will have whole new microservices set up. However, our end users 
 
 ## Path Alias
 
-If you manage your domain inside ZEIT, you can hide microservices under a domain as shown above with our "Path Alias" feature.
+If you [manage](/docs/getting-started/assign-a-domain-name#2.-using-a-custom-domain,-managed-by-now) your domain inside ZEIT or [point it](/docs/getting-started/assign-a-domain-name#4.-using-a-custom-domain-with-a-cname) to \`alias.zeit.co\`, you can hide microservices under a domain as shown above with our "Path Alias" feature.
 
 Here's how to do it.
 
@@ -94,7 +94,14 @@ Incoming HTTP requests will be matched with the pathname format defined in the r
 * **/user/*/profile** - A wildcard rule matches pathnames like \`/user/rauchg/profile\`
 * **/api/**** - A wildcard rule matches pathnames with multiple segments like \`/api/user/email\` or \`/api/login\`
 
-If there is no \`pathname\` field, all the requests will be a candidate for the rule.
+If there is no \`pathname\` field, all the requests will be a candidate for the rule (it is similar to having \`/**\` as the value for \`pathname\`).
+
+Additionally the pathname will be forwarded to the destination as is. Here are some examples:
+
+${<Code>{`- /api/register -> my-api-register.now.sh/api/register
+- /user/rauchg/profile -> my-ui.now.sh/user/rauchg/profile
+- /api/v2/user/info -> my-api.now.sh/api/v2/user/info
+`}</Code>}
 
 ### methods (optional)
 
@@ -133,7 +140,7 @@ ${<Code>{`{
 }
 `}</Code>}
 
-Now for the \`dest\` field, instead of the deployment url(\`api-tuhpdtgoja-now.sh\`), we now have an alias(\`my-api.now.sh\`).
+Now for the \`dest\` field, instead of the deployment url (\`api-tuhpdtgoja-now.sh\`), we now have an alias (\`my-api.now.sh\`).
 
 Then we only need to set these rules once, unless you change the microservices setup.
 
@@ -143,5 +150,5 @@ Now simply map it to the alias like this:
 
 ${<TerminalInput>now alias api-iewodtfalq-now.sh my-api.now.sh</TerminalInput>}
 
-That's all.
+You don't need to update path alias rules since \`my-api.now.sh\` points to the latest deployment.
 `)
