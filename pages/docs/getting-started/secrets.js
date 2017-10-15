@@ -66,4 +66,22 @@ ${
   />
 }
 
+## Certificates
+To add a certificate as a secret, you need to base64-encode the certificate string before. Therefore, you might use the node-repl environment and read your certificate file, base64-encode it and copy the encoded string into clipboard. Now you are able to add it like any other secret.
+${<TerminalInput>{`
+# starting node repl
+node
+> // fs is necessary to read the cert file
+> const fs = require('fs')
+> // read file into string utf8 encoded
+> const certString = fs.readFileSync('cert.pem', 'utf8')
+> // encode utf8 string into base64-encoding
+> console.log(Buffer.from(certString).toString('base64'))
+> // copy base64-encoded string to clipboard and exit node repl with <CTRL>-<C>
+now secret add cert "your base64-encoded string from clipboard"
+`}</TerminalInput>}
+
+Before you can use your certificate to access other apis, you need to decode the certificate:    
+${<Code>{`console.log( Buffer.from(b64Encoded, 'base64').toString() )`}</Code>}
+
 `)
