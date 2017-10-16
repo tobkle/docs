@@ -66,22 +66,19 @@ ${
   />
 }
 
-## Certificates
-To add a certificate as a secret, you need to base64-encode the certificate string before. Therefore, you might use the node-repl environment and read your certificate file, base64-encode it and copy the encoded string into clipboard. Now you are able to add it like any other secret.
-${<TerminalInput>{`
-# starting node repl
-node
-> // fs is necessary to read the cert file
-> const fs = require('fs')
-> // read file into string utf8 encoded
-> const certString = fs.readFileSync('cert.pem', 'utf8')
-> // encode utf8 string into base64-encoding
-> console.log(Buffer.from(certString).toString('base64'))
-> // copy base64-encoded string to clipboard and exit node repl with <CTRL>-<C>
-now secret add cert "your base64-encoded string from clipboard"
-`}</TerminalInput>}
+## Secrets with New Lines
 
-Before you can use your certificate to access other apis, you need to decode the certificate:    
-${<Code>{`console.log( Buffer.from(b64Encoded, 'base64').toString() )`}</Code>}
+Sometimes, you need to add secrets which has new lines (or any other special characters) in them (eg: certificates). But you won't be able to add them by simply using \`now secrets add\`.
+
+Instead, you can encode the secret into [Base64](https://en.wikipedia.org/wiki/Base64) before adding it. Here's how you could do that on Mac/Linux with a single command:
+
+${<TerminalInput>{`now secrets add my-cert $(cat /path/to/cert | base64)`}</TerminalInput>}
+
+Before you use the secret inside your app, you need to decode it. Here's how you could do it in a Node.js app.
+
+${<Code>{`const cert = Buffer.from(certFromtheSecret, 'base64').toString()`}</Code>}
+
+>Base64 is a simple encoding algorithm which is available everywhere.<br/>
+> That's why we've used it. But it's okay to choose any text based encoding algorithm.
 
 `)
